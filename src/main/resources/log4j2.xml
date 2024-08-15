@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="logPath">logs</Property>
+    </Properties>
+
+    <!-- Настройка аппендера для ротации и удаления старых файлов -->
+    <Appenders>
+        <RollingFile name="RollingFileAppender" fileName="${logPath}/hippodrome.log"
+                     filePattern="${logPath}/hippodrome.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5level %logger{36}: %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="7"/>
+        </RollingFile>
+
+        <!-- Консольный аппендер для отладки -->
+        <Console name="ConsoleAppender">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5level %logger{36}: %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <!-- Настройка логирования для всех уровней -->
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="RollingFileAppender"/>
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
